@@ -71,6 +71,7 @@ Or, you can be more explicit:
 ```ruby
 movie = Videoinfo::Videos::Movie.new('hackers', 'Hackers.1995.mkv', 0)
 movie.populate_result!    # => #<Videoinfo::Results::MovieResult>
+movie.result              # => #<Videoinfo::Results::MovieResult>
 movie.search_imdb         # => [#<Imdb::Movie>, ...]
 movie.search_wiki         # => "http://en.wikipedia.org/wiki/Hackers_(film)"
 movie.read_mediainfo      # => "General..."
