@@ -50,7 +50,7 @@ Is your movie "Hackers (1995)" (tt0113243)? [Y/n] y
 The simpliest way to analyze a movie is with `Videoinfo.analyze_movie()`:
 
 ```ruby
-result = Videoinfo.analyze_movie('hackers', 'Hackers.1995.mkv', 5) # => #<Videoinfo::Results::MovieResult>
+result = Videoinfo.analyze_movie('hackers', 'Hackers.1995.mkv', 0) # => #<Videoinfo::Results::MovieResult>
 result.imdb_id         # => "0113243"
 result.title           # => "Hackers"
 result.plot_summary    # => "A young boy is arrested..."
@@ -69,7 +69,7 @@ result.mediainfo       # => "General..."
 Or, you can be more explicit:
 
 ```ruby
-movie = Videoinfo::Videos::Movie.new('hackers', 'Hackers.1995.mkv', 0)
+movie = Videoinfo::Videos::Movie.new('hackers', 'Hackers.1995.mkv', 5)
 movie.populate_result!    # => #<Videoinfo::Results::MovieResult>
 movie.result              # => #<Videoinfo::Results::MovieResult>
 movie.search_imdb         # => [#<Imdb::Movie>, ...]
