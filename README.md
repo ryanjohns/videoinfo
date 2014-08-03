@@ -11,7 +11,7 @@ First, you'll want to install the prerequisite binaries and make sure they're in
 
 Add this line to your application's Gemfile:
 
-    gem `videoinfo`
+    gem 'videoinfo'
 
 And then execute:
 
