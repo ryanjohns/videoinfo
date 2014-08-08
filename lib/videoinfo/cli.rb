@@ -31,6 +31,8 @@ module Videoinfo
         end
       end
 
+      name, file = option_parser.parse!(args)
+
       begin
         Videoinfo.image_host = Videoinfo::ImageHosts.const_get(image_host).new
       rescue
@@ -39,7 +41,6 @@ module Videoinfo
         exit 1
       end
 
-      name, file = option_parser.parse!(args)
       if name.to_s == '' || file.to_s == ''
         STDERR.puts option_parser
         exit 1
