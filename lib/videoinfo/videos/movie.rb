@@ -18,7 +18,7 @@ module Videoinfo
           result.rating       = movie.rating
           result.genres       = movie.genres
           result.director     = movie.director.first
-          result.writers      = movie.writers
+          result.writers      = movie.writers.compact
           result.runtime      = movie.length
           result.wiki_url     = search_wiki
           result.trailer_url  = search_youtube
