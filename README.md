@@ -41,6 +41,7 @@ $ videoinfo -h
 Usage: videoinfo [options] "MOVIENAME" file
     -i, --image-host=IMAGEHOST       The ImageHost to use for uploading screenshots. Default: Imgur
     -s, --screenshots=SCREENSHOTS    The number of screenshots to create, max 7. Default: 2
+    -n, --no-prompt                  Disable interactive mode
     -h, --help                       Show this message
 
 $ videoinfo -s 5 -i Imgur 'Hackers' Hackers.1995.mkv > hackers.txt

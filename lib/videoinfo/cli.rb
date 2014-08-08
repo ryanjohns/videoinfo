@@ -25,6 +25,9 @@ module Videoinfo
             exit 1
           end
         end
+        opts.on('-n', '--no-prompt', 'Disable interactive mode') do
+          Videoinfo.interactive = false
+        end
         opts.on('-h', '--help', 'Show this message') do
           puts opts
           exit
