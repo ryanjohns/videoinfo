@@ -1,10 +1,10 @@
 ## Videoinfo
 
-Videoinfo is a simple tool for aggregating video metadata and capturing screenshots.
+Videoinfo is a simple tool for aggregating video metadata and capturing/uploading screenshots.
 
 ## Installation
 
-First, you'll want to install the prerequisite binaries and make sure they're in your PATH.
+First, you'll want to install the prerequisite binaries and make sure they are in your PATH.
 
  * [mediainfo](http://mediaarea.net/en-us/MediaInfo/Download)
  * [ffmpeg](https://www.ffmpeg.org/download.html)
@@ -26,9 +26,10 @@ Or install it yourself with:
 There are only a few configuration options:
 
 ```ruby
-Videoinfo.mediainfo_binary = '/path/to/mediainfo' # defaults to 'mediainfo'
-Videoinfo.ffmpeg_binary    = '/path/to/mediainfo' # defaults to 'ffmpeg'
-Videoinfo.interactive      = true # defaults to true when using the command line, false otherwise
+Videoinfo.mediainfo_binary = '/path/to/mediainfo'  # defaults to 'mediainfo'
+Videoinfo.ffmpeg_binary    = '/path/to/ffmpeg'     # defaults to 'ffmpeg'
+Videoinfo.image_host       = ImageHosts::Imgur.new # can be any object that responds to upload(File)
+Videoinfo.interactive      = true                  # defaults to true when using the command line, false otherwise
 ```
 
 ## Usage
@@ -38,10 +39,11 @@ Videoinfo.interactive      = true # defaults to true when using the command line
 ```
 $ videoinfo -h
 Usage: videoinfo [options] "MOVIENAME" file
+    -i, --image-host=IMAGEHOST       The ImageHost to use for uploading screenshots. Default: Imgur
     -s, --screenshots=SCREENSHOTS    The number of screenshots to create, max 7. Default: 2
     -h, --help                       Show this message
 
-$ videoinfo -s 5 'Hackers' Hackers.1995.mkv > hackers.txt
+$ videoinfo -s 5 -i Imgur 'Hackers' Hackers.1995.mkv > hackers.txt
 Is your movie "Hackers (1995)" (tt0113243)? [Y/n] y
 ```
 
@@ -64,6 +66,7 @@ result.runtime         # => 107
 result.imdb_url        # => "http://www.imdb.com/title/tt0113243"
 result.wiki_url        # => "https://en.wikipedia.org/wiki/Hackers_(film)"
 result.trailer_url     # => "https://www.youtube.com/watch?v=vCobCU9FfzI"
+result.screenshot_urls # => ["https://i.imgur.com/SoBhWfQ.png", ...]
 result.mediainfo       # => "General..."
 ```
 
@@ -71,13 +74,14 @@ Or, you can be more explicit:
 
 ```ruby
 movie = Videoinfo::Videos::Movie.new('hackers', 'Hackers.1995.mkv', 5)
-movie.populate_result!    # => #<Videoinfo::Results::MovieResult>
-movie.result              # => #<Videoinfo::Results::MovieResult>
-movie.search_imdb         # => [#<Imdb::Movie>, ...]
-movie.search_wiki         # => "https://en.wikipedia.org/wiki/Hackers_(film)"
-movie.search_youtube      # => "https://www.youtube.com/watch?v=vCobCU9FfzI"
-movie.read_mediainfo      # => "General..."
-movie.capture_screenshots # => [#<Tempfile:/var/folders/l1/qf5v1rlj6n99n20_rhwrp_5r0000gn/T/ss_20.20140803-67537-ur85vi.png>, ...]
+movie.populate_result!            # => #<Videoinfo::Results::MovieResult>
+movie.result                      # => #<Videoinfo::Results::MovieResult>
+movie.search_imdb                 # => [#<Imdb::Movie>, ...]
+movie.search_wiki                 # => "https://en.wikipedia.org/wiki/Hackers_(film)"
+movie.search_youtube              # => "https://www.youtube.com/watch?v=vCobCU9FfzI"
+movie.read_mediainfo              # => "General..."
+movie.capture_screenshots         # => [#<Tempfile:/var/folders/l1/qf5v1rlj6n99n20_rhwrp_5r0000gn/T/ss_20.20140803-67537-ur85vi.png>, ...]
+Videoinfo.upload_screenshot(file) # => "https://i.imgur.com/SoBhWfQ.png"
 ```
 
 ## Contributing

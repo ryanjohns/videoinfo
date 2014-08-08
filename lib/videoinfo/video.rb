@@ -19,7 +19,7 @@ module Videoinfo
 
     def populate_result!
       result.mediainfo       = read_mediainfo
-      result.screenshot_urls = capture_screenshots.map { |ss| upload_screenshot(ss) }.compact
+      result.screenshot_urls = capture_screenshots.map { |ss| Videoinfo.upload_screenshot(ss) }
 
       result
     end
@@ -48,47 +48,11 @@ module Videoinfo
         if $?.success?
           images << image
         else
-          STDERR.puts "ERROR: unable to capture screenshot at #{percent}% into the video"
+          raise Error, "ERROR: unable to capture screenshot at #{percent}% into the video"
         end
       end
 
       images
-    end
-
-    def upload_screenshot(image)
-      begin
-        http         = bb_images_http
-        request      = Net::HTTP::Post.new(@bb_images_uri.request_uri, @bb_images_header)
-        request.body = post_body(image)
-        response     = http.request(request)
-        img_name     = JSON.parse(response.body)['ImgName']
-        "https://images.baconbits.org/images/#{img_name}"
-      rescue => e
-        STDERR.puts "ERROR: could not upload screenshot #{File.basename(image.path)}. #{e.message}"
-        nil
-      end
-    end
-
-    private
-
-    def bb_images_http
-      return @bb_images_http unless @bb_images_http.nil?
-
-      @boundary               = SecureRandom.hex(6)
-      @bb_images_header       = { 'Content-Type' => "multipart/form-data, boundary=#{@boundary}" }
-      @bb_images_uri          = URI.parse('https://images.baconbits.org/upload.php')
-      @bb_images_http         = Net::HTTP.new(@bb_images_uri.host, @bb_images_uri.port)
-      @bb_images_http.use_ssl = true
-
-      @bb_images_http
-    end
-
-    def post_body(image)
-      body  = "--#{@boundary}\r\n"
-      body << "Content-Disposition: form-data; name=\"ImageUp\"; filename=\"#{File.basename(image.path)}\"\r\n"
-      body << "Content-Type: image/png\r\n\r\n"
-      body << image.read
-      body << "\r\n\r\n--#{@boundary}--\r\n"
     end
 
   end

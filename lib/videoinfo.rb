@@ -7,6 +7,8 @@ require 'json'
 require 'securerandom'
 require 'imdb'
 require 'videoinfo/errors'
+require 'videoinfo/image_host'
+require 'videoinfo/image_hosts/imgur'
 require 'videoinfo/result'
 require 'videoinfo/results/movie_result'
 require 'videoinfo/version'
@@ -25,11 +27,16 @@ module Videoinfo
     uri = URI("https://www.google.com/search?hl=en&q=#{CGI.escape(term)}")
     begin
       response = Net::HTTP.get_response(uri)
-      doc = Nokogiri::HTML(response.body.encode('UTF-8', 'binary', :invalid => :replace, :undef => :replace, :replace => ''))
-      doc.css('cite').map { |node| node.inner_text }
+      document = Nokogiri::HTML(response.body.encode('UTF-8', 'binary', :invalid => :replace, :undef => :replace, :replace => ''))
+      document.css('cite').map { |node| node.inner_text }
     rescue => e
       raise Error, "could not search google for '#{term}'. #{e.message}"
     end
+  end
+
+  # Uploads a screenshot to the currently configured image_host and returns a URL to the image.
+  def self.upload_screenshot(image)
+    image_host.upload(image)
   end
 
   # Set the path of the mediainfo binary.
@@ -39,7 +46,7 @@ module Videoinfo
 
   # Get the path to the mediainfo binary, defaulting to 'mediainfo'.
   def self.mediainfo_binary
-    @mediainfo_binary || 'mediainfo'
+    @mediainfo_binary ||= 'mediainfo'
   end
 
   # Set the path of the ffmpeg binary.
@@ -49,7 +56,17 @@ module Videoinfo
 
   # Get the path to the ffmpeg binary, defaulting to 'ffmpeg'.
   def self.ffmpeg_binary
-    @ffmpeg_binary || 'ffmpeg'
+    @ffmpeg_binary ||= 'ffmpeg'
+  end
+
+  # Set the image host class. Must be an object that responds to upload(File) and returns a URL.
+  def self.image_host=(host)
+    @image_host = host
+  end
+
+  # Get the image host class, defaulting to ImageHosts::Imgur.new.
+  def self.image_host
+    @image_host ||= ImageHosts::Imgur.new
   end
 
   # Set interactive mode to true or false.

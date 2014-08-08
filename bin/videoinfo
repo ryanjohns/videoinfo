@@ -6,5 +6,4 @@ require 'videoinfo/cli'
 trap('TERM') { puts ''; exit 1 }
 trap('INT')  { puts ''; exit 1 }
 
-Videoinfo.interactive = true
 Videoinfo::CLI.run(ARGV)

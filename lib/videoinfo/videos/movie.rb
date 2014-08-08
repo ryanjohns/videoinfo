@@ -24,7 +24,7 @@ module Videoinfo
           result.trailer_url  = search_youtube
         end
 
-        result.screenshot_urls = capture_screenshots.map { |ss| upload_screenshot(ss) }.compact
+        result.screenshot_urls = capture_screenshots.map { |ss| Videoinfo.upload_screenshot(ss) }
 
         result
       end

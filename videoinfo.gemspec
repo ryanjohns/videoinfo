@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.name        = 'videoinfo'
   s.version     = Videoinfo::VERSION
   s.summary     = 'Simple tool for aggregating video metadata and capturing screenshots'
-  s.description = 'Combines metadata from a variety of sources with codec details from mediainfo to produce a marked-up summary for a video file. Also captures screenshots using ffmpeg.'
+  s.description = 'Combines metadata from a variety of sources with codec details from mediainfo to produce a marked-up summary for a video file. Also captures screenshots using ffmpeg and uploads them to a configurable image host.'
   s.authors     = ['Ryan Johns']
   s.email       = 'ryanjohns@gmail.com'
   s.homepage    = 'https://github.com/ryanjohns/videoinfo'
