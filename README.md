@@ -62,7 +62,8 @@ result.director        # => "Iain Softley"
 result.writers         # => ["Rafael Moreu"]
 result.runtime         # => 107
 result.imdb_url        # => "http://www.imdb.com/title/tt0113243"
-result.wiki_url        # => "http://en.wikipedia.org/wiki/Hackers_(film)"
+result.wiki_url        # => "https://en.wikipedia.org/wiki/Hackers_(film)"
+result.trailer_url     # => "https://www.youtube.com/watch?v=vCobCU9FfzI"
 result.mediainfo       # => "General..."
 ```
 
@@ -73,7 +74,8 @@ movie = Videoinfo::Videos::Movie.new('hackers', 'Hackers.1995.mkv', 5)
 movie.populate_result!    # => #<Videoinfo::Results::MovieResult>
 movie.result              # => #<Videoinfo::Results::MovieResult>
 movie.search_imdb         # => [#<Imdb::Movie>, ...]
-movie.search_wiki         # => "http://en.wikipedia.org/wiki/Hackers_(film)"
+movie.search_wiki         # => "https://en.wikipedia.org/wiki/Hackers_(film)"
+movie.search_youtube      # => "https://www.youtube.com/watch?v=vCobCU9FfzI"
 movie.read_mediainfo      # => "General..."
 movie.capture_screenshots # => [#<Tempfile:/var/folders/l1/qf5v1rlj6n99n20_rhwrp_5r0000gn/T/ss_20.20140803-67537-ur85vi.png>, ...]
 ```

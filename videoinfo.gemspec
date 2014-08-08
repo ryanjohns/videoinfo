@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = 'Combines metadata from a variety of sources with codec details from mediainfo to produce a marked-up summary for a video file. Also captures screenshots using ffmpeg.'
   s.authors     = ['Ryan Johns']
   s.email       = 'ryanjohns@gmail.com'
-  s.homepage    = 'http://github.com/ryanjohns/videoinfo'
+  s.homepage    = 'https://github.com/ryanjohns/videoinfo'
   s.license     = 'MIT'
 
   s.files         = `git ls-files`.split("\n")
