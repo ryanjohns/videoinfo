@@ -28,7 +28,7 @@ module Videoinfo
         output << '[/quote]'
 
         if trailer_url
-          output += ['', '[b]Trailer:[/b]', '[quote]', '[center][youtube]', trailer_url, '[/youtube][/center]' '[/quote]']
+          output += ['', '[b]Trailer:[/b]', '[quote]', "[center][youtube]#{trailer_url}[/youtube][/center]", '[/quote]']
         end
 
         if screenshot_urls && screenshot_urls.size > 0
