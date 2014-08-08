@@ -21,6 +21,7 @@ module Videoinfo
           result.writers      = movie.writers
           result.runtime      = movie.length
           result.wiki_url     = search_wiki
+          result.trailer_url  = search_youtube
         end
 
         result.screenshot_urls = capture_screenshots.map { |ss| upload_screenshot(ss) }.compact
@@ -49,6 +50,11 @@ module Videoinfo
       def search_wiki
         wiki_url = Videoinfo.google("site:wikipedia.org #{result.title || name} film").first
         wiki_url ? "http://#{wiki_url}" : nil
+      end
+
+      def search_youtube
+        youtube_url = Videoinfo.google("site:youtube.com #{result.title || name} trailer").first
+        youtube_url ? "https://#{youtube_url}" : nil
       end
 
     end
