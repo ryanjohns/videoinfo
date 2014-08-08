@@ -25,7 +25,8 @@ module Videoinfo
     uri = URI("https://www.google.com/search?hl=en&q=#{CGI.escape(term)}")
     begin
       response = Net::HTTP.get_response(uri)
-      response.body.scan(%r(<cite>.+</cite>)).map { |c| c.gsub(%r((</?cite>|</?b>)), '') }
+      doc = Nokogiri::HTML(response.body.encode('UTF-8', 'binary', :invalid => :replace, :undef => :replace, :replace => ''))
+      doc.css('cite').map { |node| node.inner_text }
     rescue => e
       raise Error, "could not search google for '#{term}'. #{e.message}"
     end
