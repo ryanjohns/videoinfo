@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+#### Version 0.5.0 (September 29, 2015)
+ * Add support for TV episodes
+
 #### Version 0.4.0 (August 8, 2014)
  * Fixed using custom image hosts from the command line
 

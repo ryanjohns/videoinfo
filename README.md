@@ -38,9 +38,10 @@ Videoinfo.interactive      = true                  # defaults to true when using
 
 ```
 $ videoinfo -h
-Usage: videoinfo [options] "MOVIENAME" file
-    -i, --image-host=IMAGEHOST       The ImageHost to use for uploading screenshots. Default: Imgur
+Usage: videoinfo [options] "MOVIENAME/SHOWNAME" file
+    -i, --image-host=IMAGEHOST       The image host to use for uploading screenshots. Default: Imgur
     -s, --screenshots=SCREENSHOTS    The number of screenshots to create, max 7. Default: 2
+    -e, --episode=EPISODE            The TV show episode or season number. Formats: S01E01 or S01
     -n, --no-prompt                  Disable interactive mode
     -h, --help                       Show this message
 
@@ -84,6 +85,13 @@ movie.read_mediainfo              # => "General..."
 movie.capture_screenshots         # => [#<Tempfile:/var/folders/l1/qf5v1rlj6n99n20_rhwrp_5r0000gn/T/ss_20.20140803-67537-ur85vi.png>, ...]
 Videoinfo.upload_screenshot(file) # => "https://i.imgur.com/SoBhWfQ.png"
 ```
+
+It works with TV shows too:
+
+```ruby
+result = Videoinfo.analyze_tv('survivor s01e01', 'survivor.s01e01.mkv', 0) # => #<Videoinfo::Results::TvResult>
+tv = Videoinfo::Videos::Tv.new('survivor s01e01', 'survivor.s01e01.mkv', 3)
+````
 
 ## Contributing
 

@@ -10,14 +10,23 @@ module Videoinfo
       Videoinfo.interactive = true
       image_host            = ENV[ENV_IMAGE_HOST] || Videoinfo.image_host.class.to_s.split('::').last
       screenshots           = 2
+      episode               = nil
       option_parser         = OptionParser.new do |opts|
-        opts.banner = 'Usage: videoinfo [options] "MOVIENAME" file'
-        opts.on('-i', '--image-host=IMAGEHOST', "The ImageHost to use for uploading screenshots. Default: #{image_host}") do |host|
+        opts.banner = 'Usage: videoinfo [options] "MOVIENAME/SHOWNAME" file'
+        opts.on('-i', '--image-host=IMAGEHOST', "The image host to use for uploading screenshots. Default: #{image_host}") do |host|
           image_host = host
         end
         opts.on('-s', '--screenshots=SCREENSHOTS', "The number of screenshots to create, max 7. Default: #{screenshots}") do |ss|
           screenshots = ss.to_i
           if screenshots > 7
+            STDERR.puts opts
+            exit 1
+          end
+        end
+        opts.on('-e', '--episode=EPISODE', 'The TV show episode or season number. Formats: S01E01 or S01') do |ep|
+          if ep =~ /\AS\d{2,3}\z/i || ep =~ /\AS\d{2,3}E\d{2,3}\z/i
+            episode = ep
+          else
             STDERR.puts opts
             exit 1
           end
@@ -41,13 +50,17 @@ module Videoinfo
         exit 1
       end
 
-      if name.to_s == '' || file.to_s == ''
+      if name.to_s.strip == '' || file.to_s.strip == ''
         STDERR.puts option_parser
         exit 1
       end
 
       begin
-        result = Videoinfo.analyze_movie(name, file, screenshots)
+        if episode
+          result = Videoinfo.analyze_tv("#{name} #{episode}".strip, file.strip, screenshots)
+        else
+          result = Videoinfo.analyze_movie(name.strip, file.strip, screenshots)
+        end
         puts result.to_s
       rescue Error => e
         STDERR.puts "ERROR: #{e.message}"

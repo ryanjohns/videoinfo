@@ -11,15 +11,22 @@ require 'videoinfo/image_host'
 require 'videoinfo/image_hosts/imgur'
 require 'videoinfo/result'
 require 'videoinfo/results/movie_result'
+require 'videoinfo/results/tv_result'
 require 'videoinfo/version'
 require 'videoinfo/video'
 require 'videoinfo/videos/movie'
+require 'videoinfo/videos/tv'
 
 module Videoinfo
 
   # Helper method to analyze a movie.
   def self.analyze_movie(name, file, screenshots = 0)
     Videos::Movie.new(name, file, screenshots).populate_result!
+  end
+
+  # Helper method to analyze a tv episode or season.
+  def self.analyze_tv(name, file, screenshots = 0)
+    Videos::Tv.new(name, file, screenshots).populate_result!
   end
 
   # Performs a google search and returns the top 10 results.
