@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+#### Version 0.5.1 (October 7, 2015)
+ * Improve IMDB searching using filters
+
 #### Version 0.5.0 (September 29, 2015)
  * Add support for TV episodes
 

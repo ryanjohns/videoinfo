@@ -48,7 +48,7 @@ module Videoinfo
       def search_imdb
         series = []
         begin
-          series = Imdb::Search.new(name).movies
+          series = Imdb::Search.new(name, :tv).movies
         rescue => e
           raise Error, "could not search IMDB. #{e.message}"
         end
