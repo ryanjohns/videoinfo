@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+#### Version 0.5.2 (April 23, 2016)
+ * Capture screenshots from the beginning of videos to avoid potential spoilers
+
 #### Version 0.5.1 (October 7, 2015)
  * Improve IMDB searching using filters
 

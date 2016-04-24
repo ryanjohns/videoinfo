@@ -41,8 +41,8 @@ module Videoinfo
       raise Error, 'unable to determine video duration' unless $?.success? && duration > 0
 
       images   = []
-      stepsize = screenshots == 1 ? 100 : 60 / (screenshots - 1)
-      (20..80).step(stepsize) do |percent|
+      stepsize = screenshots == 1 ? 100 : 25 / (screenshots - 1)
+      (5..30).step(stepsize) do |percent|
         image = Tempfile.new(["ss_#{percent}.", '.png'])
         %x(#{Videoinfo.ffmpeg_binary} -y -ss #{duration * percent / 100} -i #{file.shellescape} -vframes 1 -f image2 #{image.path} -v quiet)
         if $?.success?

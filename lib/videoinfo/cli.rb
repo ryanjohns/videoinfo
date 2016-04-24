@@ -16,9 +16,9 @@ module Videoinfo
         opts.on('-i', '--image-host=IMAGEHOST', "The image host to use for uploading screenshots. Default: #{image_host}") do |host|
           image_host = host
         end
-        opts.on('-s', '--screenshots=SCREENSHOTS', "The number of screenshots to create, max 7. Default: #{screenshots}") do |ss|
+        opts.on('-s', '--screenshots=SCREENSHOTS', "The number of screenshots to create, max 6. Default: #{screenshots}") do |ss|
           screenshots = ss.to_i
-          if screenshots > 7
+          if screenshots > 6
             STDERR.puts opts
             exit 1
           end

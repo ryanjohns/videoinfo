@@ -40,7 +40,7 @@ Videoinfo.interactive      = true                  # defaults to true when using
 $ videoinfo -h
 Usage: videoinfo [options] "MOVIENAME/SHOWNAME" file
     -i, --image-host=IMAGEHOST       The image host to use for uploading screenshots. Default: Imgur
-    -s, --screenshots=SCREENSHOTS    The number of screenshots to create, max 7. Default: 2
+    -s, --screenshots=SCREENSHOTS    The number of screenshots to create, max 6. Default: 2
     -e, --episode=EPISODE            The TV show episode or season number. Formats: S01E01 or S01
     -n, --no-prompt                  Disable interactive mode
     -h, --help                       Show this message
