@@ -48,13 +48,11 @@ module Videoinfo
       end
 
       def search_wiki
-        wiki_url = Videoinfo.google("site:wikipedia.org #{result.title || name} film").first
-        wiki_url ? "https://#{wiki_url}" : nil
+        Videoinfo.google("site:wikipedia.org #{result.title || name} film").first
       end
 
       def search_youtube
-        youtube_url = Videoinfo.google("site:youtube.com #{result.title || name} trailer").first
-        youtube_url ? "https://#{youtube_url}" : nil
+        Videoinfo.google("site:youtube.com #{result.title || name} trailer").first
       end
 
     end

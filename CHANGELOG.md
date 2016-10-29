@@ -1,5 +1,8 @@
 ## CHANGELOG
 
+#### Version 0.5.3 (October 29, 2016)
+ * Fix Wikipedia and Youtube URLs having double https://
+
 #### Version 0.5.2 (April 23, 2016)
  * Capture screenshots from the beginning of videos to avoid potential spoilers
 
